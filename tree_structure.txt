@@ -1,0 +1,32 @@
+.
+├── README.md
+├── main.tf
+├── modules
+│   ├── app_service
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── cdn
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── key_vault
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── monitor
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   ├── resource_group
+│   │   ├── main.tf
+│   │   ├── output.tf
+│   │   └── variables.tf
+│   ├── sql_database
+│   │   ├── main.tf
+│   │   └── variables.tf
+│   └── storage_account
+│       ├── main.tf
+│       ├── output.tf
+│       └── variables.tf
+├── outputs.tf
+├── tree_structure.txt
+└── variables.tf
+
+9 directories, 21 files
