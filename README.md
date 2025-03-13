@@ -22,6 +22,10 @@ Authenticate
 
 Terraform
 
+  Directory Tree Structure:
+
+  Architecure Diagram:
+
   
     
   
