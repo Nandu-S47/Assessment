@@ -14,10 +14,16 @@ KV for secrets
 Authenticate
 
   Method used to authenticate and deploy resource in Azure:
-    SP with secret through Azure CLI:
-    az login --service-principal -u "CLIENT_ID" -p "CLIENT_SECRET" --tenant "TENANT_ID"
+    Provider 
+    features {
+     Sub ID
+     client ID
+     client secrets
+     tenant ID
+    }
+    
 
-  Recommended Method to be used or standards follow global:
+  Recommended Method to be use or standards to be follow global:
     Authenticating using a Service Principal with Open ID Connect.
 
 Terraform
