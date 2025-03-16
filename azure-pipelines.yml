@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: msftpoolagent
+  vmImage: 'msftpoolagent'
 
 stages:
 - stage: Plan
