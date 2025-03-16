@@ -31,7 +31,8 @@ module "virtualnetwork" {
   subnet2_address_prefix = "10.0.2.0/24"
   nsg_name = "azvnet1-nsg"
   dns_servers = []
-  
+  subnet3_name = "subnet3"
+  subnet3_address_prefix = "10.0.3.0/24"
 }
 /*
 module "app_service" {
