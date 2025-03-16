@@ -45,3 +45,31 @@ module "app_service" {
   min_tls_version = "1.2"
   
 }
+
+module "sql_database" {
+  source = "./modules/sql_database"
+  UserAssignedIdentity_name = "azusrassignsqlid"
+  sqlserver_name = "azsqlserver"
+  resource_group_name = module.resource_group.rg_name_output
+  location = "Central US"
+  sql_ver = "12.0"
+  admin_login = "az-sqladmin"
+  admin_login_password = "P@ssw0rd1234"
+  sql_db_name = "azsqldb"
+  lic_type = "BasePrice"
+  max_size_gb = 2
+  sku_name = "S0"
+  
+}
+
+module "cdn" {
+  source = "./modules/cdn"
+  cdn_name = "azcdn"
+  location = "Central US"
+  resource_group_name = module.resource_group.rg_name_output
+  sku = "Standard_Microsoft"
+  cdn_endpoint_name = "azcdnendpoint"
+  origin_name = "azcdnorigin"
+  origin_host_name = "azcdnorigin.azurewebsites.net"
+  
+}
