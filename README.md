@@ -23,7 +23,7 @@ Authenticate
     }
     
 
-  Recommended Method to be use or standards to be follow global:
+  Recommended Method to be use or follow globally used standard:
     Authenticating using a Service Principal with Open ID Connect.
 
 Terraform
