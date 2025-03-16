@@ -58,3 +58,15 @@ variable "subnet2_address_prefix" {
   type        = string
   
 }
+
+variable "subnet3_name" {
+  description = "Name of the third subnet"
+  type        = string
+  
+}
+
+variable "subnet3_address_prefix" {
+  description = "Address prefix of the third subnet"
+  type        = string
+  
+}

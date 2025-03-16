@@ -4,7 +4,7 @@ module "resource_group" {
   rg_name = "assessment"
   rg_location = "Central US"
 }
-
+/*
 module "storage_account" {
   source = "./modules/storage_account"
   sa_name = "azapiwebapp"
@@ -18,7 +18,7 @@ module "key_vault" {
   akv_rg_name = module.resource_group.rg_name_output
   akv_location = "Central US"
 }
-
+*/
 module "virtualnetwork" {
   source = "./modules/connectivity/virtual_network"
   vnet_name = "azvnet1"
@@ -33,7 +33,7 @@ module "virtualnetwork" {
   dns_servers = []
   
 }
-
+/*
 module "app_service" {
   source = "./modules/app_service"
   app_service_plan_name = "azappserviceplan"
@@ -73,3 +73,4 @@ module "cdn" {
   origin_host_name = "azcdnorigin.azurewebsites.net"
   
 }
+*/
