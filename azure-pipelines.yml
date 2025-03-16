@@ -19,11 +19,36 @@ stages:
     - task: TerraformInstaller@1
       inputs:
         terraformVersion: 'latest'
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'modules'
+        Contents: '**'
+        TargetFolder: '$(Build.artifactstagingdirectory)'
     
-    - script: |
-       terraform --version
-       terraform init
-       terraform plan -out=tfplan
-      displayName: 'Terraform init and plan'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+    
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$
+        
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.ArtifactsDirectory)'
+        backendServiceArm: 'az-login'
+        backendAzureRmResourceGroupName: 'aessesment-rg'
+        backendAzureRmStorageAccountName: 'azstgaccadopipeline'
+        backendAzureRmContainerName: 'azstgblobforado'
+        backendAzureRmKey: ${env:STGACCKEY}
+
+    - task: TerraformTaskV4@4
 
 
