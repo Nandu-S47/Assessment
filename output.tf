@@ -1,3 +1,4 @@
+# Purpose: This file is used to output the values of the resources created in the main.tf file.
 output "stgactnameoutput" {
   value = module.storage_account.sa_name_output
   
@@ -5,6 +6,7 @@ output "stgactnameoutput" {
 
 output "rgnameoutput" {
   value = module.resource_group.rg_name_output
+  
 }
 
 output "vnetnameoutput" {
