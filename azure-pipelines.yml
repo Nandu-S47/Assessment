@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: msftpoolagent
+
+stages:
+- stage: Plan
+  displayName: 'Terraform Plan'
+  jobs: 
+  - job: TerraformPlan
+    displayName: 'Terraform Plan'
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    
+    - script: |
+       terraform --version
+       terraform init
+       terraform plan -out=tfplan
+      displayName: 'Terraform init and plan'
+
+
