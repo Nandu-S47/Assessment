@@ -1,7 +1,7 @@
 
 module "resource_group" {
   source = "./modules/resource_group"
-  rg_name = "aessesment"
+  rg_name = "assesment"
   rg_location = "Central US"
 }
 
