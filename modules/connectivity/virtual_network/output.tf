@@ -56,3 +56,4 @@ output "subnet2_address_prefix_output" {
   value       = azurerm_subnet.subnet2.address_prefixes
   
 }
+

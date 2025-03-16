@@ -28,3 +28,18 @@ resource "azurerm_subnet" "subnet2" {
   address_prefixes     = [var.subnet2_address_prefix]
   
 }
+
+resource "azurerm_subnet" "subnet3" {
+  name                 = var.subnet3_name
+  resource_group_name  = var.rg_name
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = [var.subnet3_address_prefix]
+  
+  delegation {
+    name = "delegationadopool"
+    service_delegation {
+      name    = "Microsoft.Devopsinfrastructures"
+      actions = ["Microsoft.devopsinfrastructure/pool"]
+    }
+  }
+}
