@@ -58,7 +58,7 @@ output "possibleoutboundipaddressesoutput" {
   value = module.app_service.possible_outbound_ip_addresses
   
 }
-
+/*
 output "sqlusrassigned_id" {
   value = module.sql_database.usrassigned_id
   
@@ -73,7 +73,7 @@ output "sqlprincipal_id" {
   value = module.sql_database.principal_id
   
 }
-
+*/
 output "sqlserver_id" {
   value = module.sql_database.sqlserver_id
   

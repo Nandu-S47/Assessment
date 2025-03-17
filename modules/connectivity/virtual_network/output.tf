@@ -57,3 +57,14 @@ output "subnet2_address_prefix_output" {
   
 }
 
+output "subnet3_id" {
+  description = "The ID of the third subnet"
+  value       = azurerm_subnet.subnet3.id
+  
+}
+
+output "subnet3_address_prefix_output" {
+  description = "The address prefix of the third subnet"
+  value       = azurerm_subnet.subnet3.address_prefixes
+  
+}

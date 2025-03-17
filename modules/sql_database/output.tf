@@ -1,3 +1,4 @@
+/*
 output "usrassigned_id" {
     value = azurerm_user_assigned_identity.example.id
   
@@ -12,9 +13,14 @@ output "principal_id" {
     value = azurerm_user_assigned_identity.example.principal_id
   
 }
-
+*/
 output "sqlserver_id" {
     value = azurerm_mssql_server.example.id
   
 }
 
+output "sqladmin_pass" {
+    value = local.admin_password
+    sensitive = true
+  
+}
