@@ -120,6 +120,6 @@ module "cdn" {
   sku = "Standard_Microsoft"
   cdn_endpoint_name = "azcdnendpoint"
   origin_name = "azcdnorigin"
-  origin_host_name = module.storage_account.sa.primary_web_endpoint
+  origin_host_name = module.storage_account.primary_web_endpoint
   
 }
