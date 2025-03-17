@@ -5,20 +5,6 @@ module "resource_group" {
   rg_location = "Central US"
 }
 
-module "storage_account" {
-  source = "./modules/storage_account"
-  sa_name = "azapiwebapp"
-  resource_group_name = module.resource_group.rg_name_output
-  location = "Central US"
-}
-
-module "key_vault" {
-  source = "./modules/key_vault"
-  akv_name = "azkvtest"
-  akv_rg_name = module.resource_group.rg_name_output
-  akv_location = "Central US"
-}
-
 module "virtualnetwork" {
   source = "./modules/connectivity/virtual_network"
   vnet_name = "azvnet1"
@@ -33,6 +19,26 @@ module "virtualnetwork" {
   dns_servers = []
   subnet3_name = "subnet3"
   subnet3_address_prefix = "10.0.3.0/24"
+}
+
+module "storage_account" {
+  source = "./modules/storage_account"
+  sa_name = "azapiwebapp"
+  resource_group_name = module.resource_group.rg_name_output
+  location = "Central US"
+}
+
+module "key_vault" {
+  source = "./modules/key_vault"
+  akv_name = "azkvtest"
+  akv_rg_name = module.resource_group.rg_name_output
+  akv_location = "Central US"
+  private_endpoint_name = "azkvprivateendpoint"
+  akv_subnet1_id = module.virtualnetwork.subnet1_id
+  private_service_connection_name = "azkvprvserviceconnection"
+  private_dns_zone_group_name = "azprvdnszonegroup"
+  prvdns_vnet_link_name = "azkvprvdnslink"
+  vnet_id_to_link = module.virtualnetwork.vnet_id
 }
 
 module "app_service" {
@@ -61,7 +67,7 @@ module "sql_database" {
   private_endpoint_name = "azsqlprvendpoint"
   sql_subnet1_id = module.virtualnetwork.subnet1_id
   private_service_connection_name = "azsqlprvserviceconnection"
-  private_dns_zone_group_name = "azsqlprvdnszonegroup"
+  private_dns_zone_group_name = "azprvdnszonegroup"
   prvdns_vnet_link_name = "azsqlprvdnslink"
   vnet_id_to_link = module.virtualnetwork.vnet_id
 
