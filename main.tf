@@ -4,7 +4,7 @@ module "resource_group" {
   rg_name = "assessment"
   rg_location = "Central US"
 }
-/*
+
 module "storage_account" {
   source = "./modules/storage_account"
   sa_name = "azapiwebapp"
@@ -18,7 +18,7 @@ module "key_vault" {
   akv_rg_name = module.resource_group.rg_name_output
   akv_location = "Central US"
 }
-*/
+
 module "virtualnetwork" {
   source = "./modules/connectivity/virtual_network"
   vnet_name = "azvnet1"
@@ -34,7 +34,7 @@ module "virtualnetwork" {
   subnet3_name = "subnet3"
   subnet3_address_prefix = "10.0.3.0/24"
 }
-/*
+
 module "app_service" {
   source = "./modules/app_service"
   app_service_plan_name = "azappserviceplan"
@@ -49,18 +49,22 @@ module "app_service" {
 
 module "sql_database" {
   source = "./modules/sql_database"
-  UserAssignedIdentity_name = "azusrassignsqlid"
   sqlserver_name = "azsqlserver"
   resource_group_name = module.resource_group.rg_name_output
   location = "Central US"
   sql_ver = "12.0"
   admin_login = "az-sqladmin"
-  admin_login_password = "P@ssw0rd1234"
+  admin_login_password = "module.sql_database.administrator_login_password"
   sql_db_name = "azsqldb"
-  lic_type = "BasePrice"
-  max_size_gb = 2
   sku_name = "S0"
-  
+  max_size_gb = 2
+  private_endpoint_name = "azsqlprvendpoint"
+  sql_subnet1_id = module.virtualnetwork.subnet1_id
+  private_service_connection_name = "azsqlprvserviceconnection"
+  private_dns_zone_group_name = "azsqlprvdnszonegroup"
+  prvdns_vnet_link_name = "azsqlprvdnslink"
+  vnet_id_to_link = module.virtualnetwork.vnet_id
+
 }
 
 module "cdn" {
@@ -74,4 +78,3 @@ module "cdn" {
   origin_host_name = "azcdnorigin.azurewebsites.net"
   
 }
-*/

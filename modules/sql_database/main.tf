@@ -1,7 +1,24 @@
+/*
 resource "azurerm_user_assigned_identity" "example" {
   name                = var.UserAssignedIdentity_name
   location            = var.location
   resource_group_name = var.resource_group_name
+}
+*/
+
+# Random password for SQL server
+resource "random_password" "admin_password" {
+  count       = var.admin_login_password == null ? 1 : 0
+  length      = 20
+  special     = true
+  min_numeric = 1
+  min_upper   = 1
+  min_lower   = 1
+  min_special = 1
+}
+
+locals {
+  admin_password = try(random_password.admin_password[0].result, var.admin_login_password)
 }
 
 resource "azurerm_mssql_server" "example" {
@@ -10,29 +27,52 @@ resource "azurerm_mssql_server" "example" {
   location                     = var.location
   version                      = var.sql_ver
   administrator_login          = var.admin_login
-  administrator_login_password = var.admin_login_password
+  administrator_login_password = local.admin_password
 }
 
 resource "azurerm_mssql_database" "example" {
   name         = var.sql_db_name
   server_id    = azurerm_mssql_server.example.id
-  collation    = "SQL_Latin1_General_CP1_CI_AS"
-  license_type = title(var.lic_type)
-  max_size_gb  = var.max_size_gb
   sku_name     = var.sku_name
-  enclave_type = "VBS"
+  max_size_gb = var.max_size_gb
 
-  tags = {
-    foo = "bar"
-  }
-
-    identity {
-    type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.example.id]
-  }
 
   # prevent the possibility of accidental data loss
   lifecycle {
     prevent_destroy = false
   }
+}
+
+# Create private endpoint for SQL server
+resource "azurerm_private_endpoint" "sqlprvendpoint" {
+  name                = var.private_endpoint_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.sql_subnet1_id
+
+  private_service_connection {
+    name                           = var.private_service_connection_name
+    private_connection_resource_id = azurerm_mssql_server.example.id
+    subresource_names              = ["sqlServer"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = var.private_dns_zone_group_name
+    private_dns_zone_ids = [azurerm_private_dns_zone.my_dns_zone.id]
+  }
+}
+
+# Create private DNS zone
+resource "azurerm_private_dns_zone" "my_dns_zone" {
+  name                = "privatelink.database.windows.net"
+  resource_group_name = var.resource_group_name
+}
+
+# Create virtual network link
+resource "azurerm_private_dns_zone_virtual_network_link" "my_privatedns_vnet_link" {
+  name                  = var.prvdns_vnet_link_name
+  resource_group_name   = var.resource_group_name
+  private_dns_zone_name = azurerm_private_dns_zone.my_dns_zone.name
+  virtual_network_id    = var.vnet_id_to_link
 }

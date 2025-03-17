@@ -35,11 +35,4 @@ resource "azurerm_subnet" "subnet3" {
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = [var.subnet3_address_prefix]
   
-  delegation {
-    name = "delegationadopool"
-    service_delegation {
-      name    = "Microsoft.Devopsinfrastructures"
-      actions = ["Microsoft.devopsinfrastructure/pool"]
-    }
-  }
 }
