@@ -39,3 +39,32 @@ variable "min_tls_version" {
   
 }
 
+variable "config_file" {
+  description = "Path to the configuration file"
+  type        = string
+  default     = "../api-app/config.json"
+}
+
+variable "appsrv_private_endpoint" {
+  description = "The name of the private endpoint"
+  type        = string
+  
+}
+
+variable "appsrv_subnet1_id" {
+  description = "The ID of the subnet"
+  type        = string
+  
+}
+
+variable "private_service_connection_name" {
+  description = "The name of the private service connection"
+  type        = string
+  
+}
+
+variable "private_dns_zone_group_name" {
+  description = "The name of the private DNS zone group"
+  type        = string
+  
+}
