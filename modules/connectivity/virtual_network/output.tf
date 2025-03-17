@@ -68,3 +68,15 @@ output "subnet3_address_prefix_output" {
   value       = azurerm_subnet.subnet3.address_prefixes
   
 }
+
+output "bastion_host_name" {
+  description = "The name of the Azure Bastion Host"
+  value       = azurerm_bastion_host.bastion.name
+  
+}
+
+output "bastion_public_ip" {
+  description = "The public IP address of the Azure Bastion Host"
+  value       = azurerm_public_ip.bastion_pip.ip_address
+  
+}

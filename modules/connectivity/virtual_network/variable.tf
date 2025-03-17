@@ -70,3 +70,19 @@ variable "subnet3_address_prefix" {
   type        = string
   
 }
+
+variable "bastion_subnet_prefix" {
+  description = "Address prefix of the Azure Bastion subnet"
+  type        = string
+  
+}
+
+variable "bastion_sku" {
+  description = "SKU of the Azure Bastion"
+  type        = string
+  validation {
+    condition = var.bastion_sku == "Standard" || var.bastion_sku == "Basic"
+    error_message = "The SKU of the Azure Bastion must be either Standard or Basic"
+  }
+  
+}

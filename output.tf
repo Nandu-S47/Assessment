@@ -88,3 +88,9 @@ output "cdnfqdnoutput" {
   value = module.cdn.cdn_fqdn
   
 }
+
+output "vmpassoutput" {
+  value = module.vm.vm_password
+  sensitive = false
+  
+}
