@@ -78,6 +78,7 @@ module "app_service" {
   appsrv_subnet1_id = module.virtualnetwork.subnet1_id
   private_service_connection_name = "azappsrvprvserviceconnection"
   private_dns_zone_group_name = "azprvdnszonegroup"
+  private_dns_zone_id = module.private_dns_zone_group.private_dns_zone_id
   
 }
 
