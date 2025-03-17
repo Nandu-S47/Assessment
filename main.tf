@@ -73,6 +73,19 @@ module "app_service" {
   os_type = "windows"
   win_app_service_name = "azappservice"
   min_tls_version = "1.2"
+  config_file = "${path.module}/api-app/config.json"
+  appsrv_private_endpoint = "azappsrvprivateendpoint"
+  appsrv_subnet1_id = module.virtualnetwork.subnet1_id
+  private_service_connection_name = "azappsrvprvserviceconnection"
+  private_dns_zone_group_name = "azprvdnszonegroup"
+  
+}
+
+module "private_dns_zone_group" {
+  source = "./modules/private_dns_zone_group"
+  resource_group_name = module.resource_group.rg_name_output
+  prvdns_vnet_link_name = "azprvdnslink"
+  vnet_id_to_link = module.virtualnetwork.vnet_id
   
 }
 
