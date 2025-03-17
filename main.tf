@@ -19,13 +19,36 @@ module "virtualnetwork" {
   dns_servers = []
   subnet3_name = "subnet3"
   subnet3_address_prefix = "10.0.3.0/24"
+  bastion_subnet_prefix = "10.0.4.0/26"
+  bastion_sku = "Standard"
 }
+
+module "vm" {
+  source = "./modules/vm"
+  location = "Central US"
+  resource_group_name = module.resource_group.rg_name_output
+  vm_subnet_id = module.virtualnetwork.subnet1_id
+  private_ip_address_allocation = "Dynamic"
+  vm_size = "Standard_DS1_v2"
+  osdisk_name = "azosdisk"
+  osdisk_type = "Standard_LRS"
+  win_vm_name = "azwinvm"
+  vm_username = "azadmin"
+  bootdiag_primary_blob_endpoint = module.storage_account.bootdiag_primary_blob_endpoint
+  
+}
+
 
 module "storage_account" {
   source = "./modules/storage_account"
   sa_name = "azapiwebapp"
   resource_group_name = module.resource_group.rg_name_output
   location = "Central US"
+  storage_account_tier = "Standard"
+  sg_replication_type = "LRS"
+  bootdiag_tier = "Standard"
+  bootdiag_replication_type = "LRS"
+  bootdiag_name = module.storage_account.bootdiag_name_output
 }
 
 module "key_vault" {

@@ -15,3 +15,49 @@ variable "location" {
   type = string
   
 }
+
+variable "bootdiag_name" {
+  description = "The name of the storage account for boot diagnostics"
+  type = string
+  
+}
+
+variable "storage_account_tier" {
+  description = "The storage account tier"
+  type = string
+  validation {
+    condition = contains(["Standard", "Premium"], var.storage_account_tier)
+    error_message = "The storage account tier must be either Standard or Premium"
+  }
+  
+}
+
+variable "sg_replication_type" {
+  description = "The storage account replication type"
+  type = string
+  validation {
+    condition = contains(["LRS", "GRS", "RAGRS", "ZRS"], var.sg_replication_type)
+    error_message = "The storage account replication type must be either LRS, GRS, RAGRS, or ZRS"
+  }
+  
+}
+
+variable "bootdiag_tier" {
+  description = "The storage account tier for boot diagnostics"
+  type = string
+  validation {
+    condition = contains(["Standard", "Premium"], var.bootdiag_tier)
+    error_message = "The storage account tier for boot diagnostics must be either Standard or Premium"
+  }
+  
+}
+
+variable "bootdiag_replication_type" {
+  description = "The storage account replication type for boot diagnostics"
+  type = string
+  validation {
+    condition = contains(["LRS", "GRS", "RAGRS", "ZRS"], var.bootdiag_replication_type)
+    error_message = "The storage account replication type for boot diagnostics must be either LRS, GRS, RAGRS, or ZRS"
+  }
+  
+}

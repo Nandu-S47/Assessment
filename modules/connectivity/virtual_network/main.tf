@@ -36,3 +36,33 @@ resource "azurerm_subnet" "subnet3" {
   address_prefixes     = [var.subnet3_address_prefix]
   
 }
+
+# Create Subnet for Azure Bastion
+resource "azurerm_subnet" "bastion_subnet" {
+  name                 = "AzureBastionSubnet"
+  resource_group_name  = var.rg_name
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = [var.bastion_subnet_prefix]
+}
+
+# Create Public IP for Azure Bastion
+resource "azurerm_public_ip" "bastion_pip" {
+  name                = "bastion-pip"
+  location            = var.location
+  resource_group_name = var.rg_name
+  allocation_method   = "Static"
+  sku                 = title(var.bastion_sku)
+}
+
+# Create Azure Bastion Host
+resource "azurerm_bastion_host" "bastion" {
+  name                = "example-bastion"
+  location            = var.location
+  resource_group_name = var.rg_name
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.bastion_subnet.id
+    public_ip_address_id = azurerm_public_ip.bastion_pip.id
+  }
+}
