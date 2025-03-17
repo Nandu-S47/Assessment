@@ -46,6 +46,8 @@ module "storage_account" {
   location = "Central US"
   storage_account_tier = "Standard"
   sg_replication_type = "LRS"
+  private_connection_resource_id = module.storage_account.sa_id_output
+  subnet_id = module.virtualnetwork.subnet3_id
   bootdiag_tier = "Standard"
   bootdiag_replication_type = "LRS"
   bootdiag_name = module.storage_account.bootdiag_name_output
