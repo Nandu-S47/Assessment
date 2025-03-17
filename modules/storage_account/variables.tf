@@ -61,3 +61,15 @@ variable "bootdiag_replication_type" {
   }
   
 }
+
+variable "subnet_id" {
+  description = "The ID of the subnet in which the private endpoint will be created"
+  type = string
+  
+}
+
+variable "private_connection_resource_id" {
+  description = "The ID of the resource to which the private endpoint will connect"
+  type = string
+  
+}

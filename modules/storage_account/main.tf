@@ -24,6 +24,40 @@ resource "azurerm_storage_account" "sa" {
 
   }
 
+resource "azurerm_storage_container" "web" {
+  name                  = "$web"
+  storage_account_id    = azurerm_storage_account.sa.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_blob" "web_app" {
+  name                   = "angular-web-app.zip"
+  storage_account_name   = azurerm_storage_account.sa.name
+  storage_container_name = azurerm_storage_container.web.name
+  type                   = "Block"
+  source                 = "${path.module}/angular-app/hsp86gpv--run.zip"
+}
+
+resource "azurerm_storage_account_static_website" "test" {
+  storage_account_id = azurerm_storage_account.sa.id
+  error_404_document = "index.html"
+  index_document     = "index.html"
+}
+
+resource "azurerm_private_endpoint" "storage_private_endpoint" {
+  name                = "${var.sa_name}-private-endpoint"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.subnet_id
+
+    private_service_connection {
+    name                           = "${var.sa_name}-privatelink"
+    private_connection_resource_id = var.private_connection_resource_id
+    subresource_names              = ["blob"]
+    is_manual_connection           = false
+  }
+}
+
 resource "random_id" "random_id" {
   byte_length = 8
 
