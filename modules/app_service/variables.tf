@@ -68,3 +68,9 @@ variable "private_dns_zone_group_name" {
   type        = string
   
 }
+
+variable "private_dns_zone_id" {
+  description = "The ID of the private DNS zone"
+  type        = string
+  
+}
