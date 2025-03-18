@@ -21,4 +21,13 @@ resource "azurerm_monitor_diagnostic_setting" "cdn_diag" {
   name = var.cdn_diag_name
   target_resource_id = azurerm_cdn_endpoint.example.id  
   storage_account_id = var.logs_store_sg_id
+
+
+  enabled_log {
+    category = "AzureCdnAccessLog"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
 }

@@ -75,4 +75,12 @@ resource "azurerm_monitor_diagnostic_setting" "akv_diag" {
   name = var.akvdiag_name
   target_resource_id = azurerm_key_vault.example.id
   storage_account_id = var.logs_store_sg_id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
 }
