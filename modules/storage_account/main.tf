@@ -58,16 +58,29 @@ resource "azurerm_private_endpoint" "storage_private_endpoint" {
   }
 }
 
-resource "random_id" "random_id" {
-  byte_length = 8
-
+resource "azurerm_monitor_diagnostic_setting" "sa_acc_diag" {
+  name = var.sa_acc_diag_name 
+  target_resource_id = azurerm_storage_account.sa.id
+  storage_account_id = var.logs_store_sg_id
 }
-# Create storage account for boot diagnostics
-resource "azurerm_storage_account" "bootdiag" {
-  name                     = "diag${random_id.random_id.hex}"
-  location                 = var.location
+
+# Create storage account for logs storage
+resource "random_string" "random" {
+  length  = 8
+  special = false
+  upper   = false
+}
+
+resource "azurerm_storage_account" "log_storage" {
+  name                     = "logstorage${random_string.random.result}"
   resource_group_name      = var.resource_group_name
-  account_tier             = var.bootdiag_tier
-  account_replication_type = upper(var.bootdiag_replication_type)
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
+resource "azurerm_storage_container" "logs" {
+  name                  = "logs"
+  storage_account_id  = azurerm_storage_account.log_storage.id
+  container_access_type = "private"
+}

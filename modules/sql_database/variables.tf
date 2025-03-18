@@ -103,3 +103,15 @@ variable "vnet_id_to_link" {
   type        = string
   
 }
+
+variable "sqldb_diag_name" {
+  description = "The name of the diagnostic setting"
+  type        = string
+  
+}
+
+variable "logs_store_sg_id" {
+  description = "The ID of the storage account to store logs"
+  type        = string
+  
+}

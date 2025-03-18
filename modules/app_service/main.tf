@@ -50,3 +50,9 @@ resource "azurerm_private_endpoint" "appsrvprivateendpoint" {
     private_dns_zone_ids = [var.private_dns_zone_id]
   }
 }
+
+resource "azurerm_monitor_diagnostic_setting" "appsrv_diag" {
+  name = var.appsrv_diag_name
+  target_resource_id = azurerm_windows_web_app.example.id
+  storage_account_id = var.logs_store_id
+}
