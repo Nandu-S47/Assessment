@@ -51,4 +51,12 @@ resource "azurerm_monitor_diagnostic_setting" "vm_diag" {
   name = var.vm_diag_name
   target_resource_id = azurerm_windows_virtual_machine.main.id
   storage_account_id = var.logs_store_sg_id
+
+  enabled_log {
+    category = "WindowsEventLog"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
 }

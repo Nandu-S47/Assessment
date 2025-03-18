@@ -81,4 +81,45 @@ resource "azurerm_monitor_diagnostic_setting" "sqldb_diag" {
   name = var.sql_db_name
   target_resource_id = azurerm_mssql_database.example.id
   storage_account_id = var.logs_store_sg_id
+
+  enabled_log {
+    category = "SQLInsights"
+  }
+  
+  enabled_log {
+    category = "AutomaticTuning"
+  }
+
+  enabled_log {
+    category = "queryStoreRuntimeStatistics"
+  }
+
+  enabled_log {
+    category = "queryStoreWaitStatistics"
+  }
+
+  enabled_log {
+    category = "databaseWaitStatistics"
+  }
+
+  enabled_log {
+    category = "Errors"
+  }
+
+  enabled_log {
+    category = "Timeouts"
+  }
+
+  enabled_log {
+    category = "Blocks"
+  }
+
+  enabled_log {
+    category = "Deadlocks"
+  }
+
+  metric {
+    category = "Basic"
+  }
+
 }

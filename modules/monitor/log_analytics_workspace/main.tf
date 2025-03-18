@@ -10,4 +10,12 @@ resource "azurerm_monitor_diagnostic_setting" "monitor_diag" {
   name = var.monitor_diag_name
   target_resource_id = azurerm_log_analytics_workspace.example.id
   storage_account_id = var.logs_store_sg_id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
 }

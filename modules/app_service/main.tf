@@ -54,5 +54,21 @@ resource "azurerm_private_endpoint" "appsrvprivateendpoint" {
 resource "azurerm_monitor_diagnostic_setting" "appsrv_diag" {
   name = var.appsrv_diag_name
   target_resource_id = azurerm_windows_web_app.example.id
-  storage_account_id = var.logs_store_id
+  storage_account_id = var.logs_store_id 
+  
+    enabled_log {
+    category = "AppServiceHTTPLogs"
+  }
+
+    enabled_log {
+    category = "AppServiceConsoleLogs"
+  }
+
+    enabled_log {
+    category = "AppServiceApplicationLogs"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
 }
