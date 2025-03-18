@@ -64,8 +64,14 @@ variable "osdisk_type" {
   
 }
 
-variable "bootdiag_primary_blob_endpoint" {
-  description = "Primary blob endpoint of the boot diagnostics storage account"
+variable "vm_diag_name" {
+  description = "Name of the diagnostic setting for the Virtual Machine"
+  type        = string
+  
+}
+
+variable "logs_store_sg_id" {
+  description = "ID of the storage account to store logs"
   type        = string
   
 }

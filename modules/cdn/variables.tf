@@ -43,3 +43,15 @@ variable "origin_host_name" {
   type        = string
   
 }
+
+variable "cdn_diag_name" {
+  description = "The name of the diagnostic setting for the CDN profile"
+  type        = string
+  
+}
+
+variable "logs_store_sg_id" {
+  description = "The ID of the storage account to store logs"
+  type        = string
+  
+}

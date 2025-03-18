@@ -74,3 +74,15 @@ variable "private_dns_zone_id" {
   type        = string
   
 }
+
+variable "appsrv_diag_name" {
+  description = "The name of the diagnostic setting"
+  type        = string
+  
+}
+
+variable "logs_store_id" {
+  description = "The ID of the logs storage account"
+  type        = string
+  
+}

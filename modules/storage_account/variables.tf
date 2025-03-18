@@ -11,13 +11,7 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "The location/region where the storage account will be created"
-  type = string
-  
-}
-
-variable "bootdiag_name" {
-  description = "The name of the storage account for boot diagnostics"
+  description = "The location of the resource group in which the storage account will be created"
   type = string
   
 }
@@ -42,25 +36,6 @@ variable "sg_replication_type" {
   
 }
 
-variable "bootdiag_tier" {
-  description = "The storage account tier for boot diagnostics"
-  type = string
-  validation {
-    condition = contains(["Standard", "Premium"], var.bootdiag_tier)
-    error_message = "The storage account tier for boot diagnostics must be either Standard or Premium"
-  }
-  
-}
-
-variable "bootdiag_replication_type" {
-  description = "The storage account replication type for boot diagnostics"
-  type = string
-  validation {
-    condition = contains(["LRS", "GRS", "RAGRS", "ZRS"], var.bootdiag_replication_type)
-    error_message = "The storage account replication type for boot diagnostics must be either LRS, GRS, RAGRS, or ZRS"
-  }
-  
-}
 
 variable "subnet_id" {
   description = "The ID of the subnet in which the private endpoint will be created"
@@ -70,6 +45,18 @@ variable "subnet_id" {
 
 variable "private_connection_resource_id" {
   description = "The ID of the resource to which the private endpoint will connect"
+  type = string
+  
+}
+
+variable "sa_acc_diag_name" {
+  description = "The name of the diagnostic setting for the storage account"
+  type = string
+  
+}
+
+variable "logs_store_sg_id" {
+  description = "The ID of the storage account to store logs"
   type = string
   
 }

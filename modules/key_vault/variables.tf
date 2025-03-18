@@ -51,3 +51,15 @@ variable "vnet_id_to_link" {
   type        = string
   
 }
+
+variable "akvdiag_name" {
+  description = "The name of the Azure Key Vault diagnostic setting"
+  type        = string
+  
+}
+
+variable "logs_store_sg_id" {
+  description = "The ID of the storage account to store logs"
+  type        = string
+  
+}

@@ -23,6 +23,18 @@ module "virtualnetwork" {
   bastion_sku = "Standard"
 }
 
+module "log_analytics_workspace" {
+  source = "./modules/monitor/log_analytics_workspace"
+  log_analytics_workspace_name = "azlawcentralus"
+  location = "Central US"
+  rg_name = module.resource_group.rg_name_output
+  loganalytics_sku = "PerGB2018"
+  retention_in_days = 30
+  monitor_diag_name = "azmonitorlog"
+  logs_store_sg_id = module.storage_account.log_storage_id
+  
+}
+
 module "vm" {
   source = "./modules/vm"
   location = "Central US"
@@ -34,10 +46,10 @@ module "vm" {
   osdisk_type = "Standard_LRS"
   win_vm_name = "azwinvm"
   vm_username = "azadmin"
-  bootdiag_primary_blob_endpoint = module.storage_account.bootdiag_primary_blob_endpoint
+  vm_diag_name = "azvmdiag"
+  logs_store_sg_id = module.storage_account.log_storage_id
   
 }
-
 
 module "storage_account" {
   source = "./modules/storage_account"
@@ -48,9 +60,9 @@ module "storage_account" {
   sg_replication_type = "LRS"
   private_connection_resource_id = module.storage_account.sa_id_output
   subnet_id = module.virtualnetwork.subnet3_id
-  bootdiag_tier = "Standard"
-  bootdiag_replication_type = "LRS"
-  bootdiag_name = module.storage_account.bootdiag_name_output
+  sa_acc_diag_name = "azsaaccdiag"
+  logs_store_sg_id = module.storage_account.log_storage_id
+
 }
 
 module "key_vault" {
@@ -64,6 +76,8 @@ module "key_vault" {
   private_dns_zone_group_name = "azprvdnszonegroup"
   prvdns_vnet_link_name = "azkvprvdnslink"
   vnet_id_to_link = module.virtualnetwork.vnet_id
+  akvdiag_name = "azkvdiag"
+  logs_store_sg_id = module.storage_account.log_storage_id
 }
 
 module "app_service" {
@@ -81,6 +95,8 @@ module "app_service" {
   private_service_connection_name = "azappsrvprvserviceconnection"
   private_dns_zone_group_name = "azprvdnszonegroup"
   private_dns_zone_id = module.private_dns_zone_group.private_dns_zone_id
+  appsrv_diag_name = "azappsrvdiag"
+  logs_store_id = module.storage_account.log_storage_id
   
 }
 
@@ -109,6 +125,8 @@ module "sql_database" {
   private_dns_zone_group_name = "azprvdnszonegroup"
   prvdns_vnet_link_name = "azsqlprvdnslink"
   vnet_id_to_link = module.virtualnetwork.vnet_id
+  sqldb_diag_name = "azsqldiag"
+  logs_store_sg_id = module.storage_account.log_storage_id
 
 }
 
@@ -121,5 +139,7 @@ module "cdn" {
   cdn_endpoint_name = "azcdnendpoint"
   origin_name = "azcdnorigin"
   origin_host_name = module.storage_account.primary_web_endpoint
+  cdn_diag_name = "azcdndiag"
+  logs_store_sg_id = module.storage_account.log_storage_id
   
 }

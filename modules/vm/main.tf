@@ -45,9 +45,10 @@ resource "azurerm_windows_virtual_machine" "main" {
     sku       = "2022-datacenter-azure-edition"
     version   = "latest"
   }
+}
 
-
-  boot_diagnostics {
-    storage_account_uri = var.bootdiag_primary_blob_endpoint
-  }
+resource "azurerm_monitor_diagnostic_setting" "vm_diag" {
+  name = var.vm_diag_name
+  target_resource_id = azurerm_windows_virtual_machine.main.id
+  storage_account_id = var.logs_store_sg_id
 }
