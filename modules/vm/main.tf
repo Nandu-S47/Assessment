@@ -1,3 +1,5 @@
+# purpose: Create a virtual machine with a network interface and diagnostic settings
+
 resource "random_pet" "prefix" {
   length    = 2
   separator = "-"

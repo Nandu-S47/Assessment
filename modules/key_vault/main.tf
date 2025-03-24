@@ -1,3 +1,6 @@
+# purpose: Create a Key Vault with private endpoint and private DNS zone 
+
+
 resource "random_string" "random" {
   length  = 8
   special = false

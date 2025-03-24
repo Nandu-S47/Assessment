@@ -1,11 +1,4 @@
-terraform {
-  required_providers {
-    random = {
-      source = "hashicorp/random"
-      version = "3.7.1"
-    }
-  }
-}
+# Purpose: Create a storage account and its related resources for a static website
 
 resource "random_string" "random" {
   length  = 8

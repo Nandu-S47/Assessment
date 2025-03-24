@@ -1,9 +1,14 @@
+# Purpose: Create a Virtual Network with 3 subnets and Azure Bastion
+
+
+# Create a network security group
 resource "azurerm_network_security_group" "example" {
   name                = var.nsg_name
   location            = var.location
   resource_group_name = var.rg_name
 }
 
+# Creates a vitrual network
 resource "azurerm_virtual_network" "example" {
   name                = var.vnet_name
   location            = var.location
@@ -13,6 +18,7 @@ resource "azurerm_virtual_network" "example" {
 
 }
 
+# Create a subnet1
 resource "azurerm_subnet" "subnet1" {
   name                 = var.subnet1_name
   resource_group_name  = var.rg_name
@@ -21,6 +27,7 @@ resource "azurerm_subnet" "subnet1" {
   
 }
 
+# Create a subnet2
 resource "azurerm_subnet" "subnet2" {
   name                 = var.subnet2_name
   resource_group_name  = var.rg_name
@@ -29,6 +36,7 @@ resource "azurerm_subnet" "subnet2" {
   
 }
 
+# Create a subnet3
 resource "azurerm_subnet" "subnet3" {
   name                 = var.subnet3_name
   resource_group_name  = var.rg_name

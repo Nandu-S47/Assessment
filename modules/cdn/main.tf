@@ -1,3 +1,5 @@
+# Purpose: Create a CDN profile, endpoint and diagnostic settings
+
 resource "azurerm_cdn_profile" "example" {
   name                = var.cdn_name
   location            = var.location

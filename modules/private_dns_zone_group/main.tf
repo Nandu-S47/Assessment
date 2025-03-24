@@ -1,3 +1,5 @@
+# purpose: Create a private DNS zone and link it to a virtual network
+
 resource "azurerm_private_dns_zone" "my_dns_zone" {
   name                = "privatelink.database.windows.net"
   resource_group_name = var.resource_group_name

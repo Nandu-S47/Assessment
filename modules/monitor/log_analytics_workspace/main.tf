@@ -1,3 +1,5 @@
+# purpose: Create a Log Analytics Workspace and enable diagnostic settings
+
 resource "azurerm_log_analytics_workspace" "example" {
   name                = var.log_analytics_workspace_name
   location            = var.location
