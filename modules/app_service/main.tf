@@ -1,3 +1,5 @@
+# Purpose: This file is used to create the app service plan, app service, private endpoint and diagnostic settings for the app service.
+
 data "local_file" "config" {
   filename = var.config_file
 }

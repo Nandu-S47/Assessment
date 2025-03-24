@@ -1,3 +1,6 @@
+# purpose: Create SQL server and database with private endpoint and private DNS zone
+
+
 /*
 resource "azurerm_user_assigned_identity" "example" {
   name                = var.UserAssignedIdentity_name
