@@ -1,8 +1,15 @@
-
+/*
 module "resource_group" {
   source      = "./modules/resource_group"
   rg_name     = "assessment"
   rg_location = "Central US"
+}
+*/
+module "resource_group_databricks" {
+  source      = "./modules/resource_group"
+  rg_name     = "azdatabricks"
+  rg_location = "Central US"
+  
 }
 
 /*
