@@ -5,6 +5,7 @@ module "resource_group" {
   rg_location = "Central US"
 }
 
+/*
 module "virtualnetwork" {
   source                 = "./modules/connectivity/virtual_network"
   vnet_name              = "azvnet1"
@@ -142,4 +143,14 @@ module "cdn" {
   cdn_diag_name       = "azcdndiag"
   logs_store_sg_id    = module.storage_account.logs_storage_account_id
 
+}
+*/
+
+module "databricks" {
+  source              = "./modules/az_Databricks"
+  databricksname      = "azdatabricks"
+  resource_group_name = module.resource_group.databricks_rg_name_output
+  location            = "Central US"
+  sku_name            = "standard"
+  prefix              = "testazcus"
 }

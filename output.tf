@@ -1,5 +1,5 @@
 # Purpose: This file is used to output the values of the resources created in the main.tf file.
-output "stgactnameoutput" {
+/*output "stgactnameoutput" {
   value = module.storage_account.sa_name_output
 
 }
@@ -73,7 +73,7 @@ output "sqlprincipal_id" {
   value = module.sql_database.principal_id
   
 }
-*/
+
 output "sqlserver_id" {
   value = module.sql_database.sqlserver_id
 
@@ -94,3 +94,4 @@ output "vmpassoutput" {
   sensitive = false
 
 }
+*/
