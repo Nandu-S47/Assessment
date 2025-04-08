@@ -58,7 +58,7 @@ module "vm" {
   logs_store_sg_id              = module.storage_account.logs_storage_account_id
 
 }
-
+*/
 module "storage_account" {
   source                         = "./modules/storage_account"
   sa_name                        = "azapiwebapp"
@@ -72,6 +72,35 @@ module "storage_account" {
   logs_store_sg_id               = module.storage_account.logs_storage_account_id
 
 }
+
+module "storage_account_1" {
+  source                         = "./modules/storage_account"
+  sa_name                        = "azstorageaccount"
+  resource_group_name            = module.resource_group.rg_name_output
+  location                       = "Central US"
+  storage_account_tier           = "Standard"
+  sg_replication_type            = "LRS"
+  private_connection_resource_id = module.storage_account.sa_id_output
+  subnet_id                      = module.virtualnetwork.subnet3_id
+  sa_acc_diag_name               = "azsaaccdiag"
+  logs_store_sg_id               = module.storage_account.logs_storage_account_id
+  
+}
+
+module "storage_account_4" {
+  source                         = "./modules/storage_account"
+  sa_name                        = "azstorageaccount4"
+  resource_group_name            = module.resource_group.rg_name_output
+  location                       = "Central US"
+  storage_account_tier           = "Standard"
+  sg_replication_type            = "LRS"
+  private_connection_resource_id = module.storage_account.sa_id_output
+  subnet_id                      = module.virtualnetwork.subnet3_id
+  sa_acc_diag_name               = "azsaaccdiag"
+  logs_store_sg_id               = module.storage_account.logs_storage_account_id
+  
+}
+
 
 module "key_vault" {
   source                          = "./modules/key_vault"
@@ -88,6 +117,22 @@ module "key_vault" {
   logs_store_sg_id                = module.storage_account.logs_storage_account_id
 }
 
+module "key_vault_2" {
+  source                          = "./modules/key_vault"
+  akv_name                        = "azkvtest2"
+  akv_rg_name                     = module.resource_group.rg_name_output
+  akv_location                    = "Central US"
+  private_endpoint_name           = "azkvprivateendpoint2"
+  akv_subnet1_id                  = module.virtualnetwork.subnet1_id
+  private_service_connection_name = "azkvprvserviceconnection2"
+  private_dns_zone_group_name     = "azprvdnszonegroup2"
+  prvdns_vnet_link_name           = "azkvprvdnslink2"
+  vnet_id_to_link                 = module.virtualnetwork.vnet_id
+  akvdiag_name                    = "azkvdiag2"
+  logs_store_sg_id                = module.storage_account.logs_storage_account_id
+  
+}
+/*
 module "app_service" {
   source                          = "./modules/app_service"
   app_service_plan_name           = "azappserviceplan"
@@ -151,7 +196,7 @@ module "cdn" {
   logs_store_sg_id    = module.storage_account.logs_storage_account_id
 
 }
-*/
+
 
 module "databricks" {
   source              = "./modules/az_Databricks"
@@ -161,3 +206,4 @@ module "databricks" {
   sku_name            = "standard"
   prefix              = "testazcus"
 }
+*/

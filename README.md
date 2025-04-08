@@ -10,6 +10,11 @@ This is an assessment project created using Terraform with a focus on reusabilit
 - Azure Monitor for monitoring
 - Key Vault for secrets management
 
+## Manually created services
+1. Storage account and blob with SAS access for Terraform StateFile.
+2. Another storage account created cotainer to use for ADO Pipeline.
+3. Created Devops organisation for agent use.
+
 ## Architecture
 Here is an architecture diagram of the project (include an actual diagram image or link to it):
 
