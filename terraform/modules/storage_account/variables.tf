@@ -60,3 +60,24 @@ variable "logs_store_sg_id" {
   type = string
   
 }
+
+variable "sg_account_kind" {
+  description = "The kind of the storage account"
+  type = string
+  validation {
+    condition = contains(["StorageV2", "BlobStorage", "Storage"], var.sg_account_kind)
+    error_message = "The storage account kind must be either StorageV2, BlobStorage, or Storage"
+  }
+  
+}
+
+variable "hns_enable" {
+  description = "Enable Hierarchical Namespace for the storage account"
+  type = bool
+  default = true
+  validation {
+    condition = var.hns_enable == true || var.hns_enable == false
+    error_message = "The hns_enable variable must be a boolean value (true or false)"
+  }
+  
+}

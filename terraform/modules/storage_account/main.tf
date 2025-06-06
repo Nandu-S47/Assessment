@@ -73,22 +73,37 @@ resource "azurerm_monitor_diagnostic_setting" "sa_acc_diag" {
 }
 
 # Create storage account for logs storage
-resource "random_string" "randomlogsa" {
-  length  = 8
-  special = false
-  upper   = false
-}
-
 resource "azurerm_storage_account" "log_storage" {
-  name                     = "logstorage${random_string.randomlogsa.result}"
+  name                     = "${lower(var.sa_name)}${random_string.random.result}"
   resource_group_name      = var.resource_group_name
   location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_tier             = title(var.storage_account_tier)
+  account_replication_type = upper(var.sg_replication_type)
 }
 
 resource "azurerm_storage_container" "logs" {
   name                  = "logs"
   storage_account_id    = azurerm_storage_account.log_storage.id
   container_access_type = "private"
+}
+
+
+# Create Storage account for batch processing for ADF and Databricks use cases
+resource "azurerm_storage_account" "adlsfs" {
+  name                     = "${lower(var.sa_name)}${random_string.random.result}"
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = title(var.storage_account_tier)
+  account_replication_type = upper(var.sg_replication_type)
+  account_kind             = var.sg_account_kind
+  is_hns_enabled           = var.hns_enable
+}
+
+resource "azurerm_storage_data_lake_gen2_filesystem" "example" {
+  name               = "adlsfs"
+  storage_account_id = azurerm_storage_account.adlsfs.id
+
+  properties = {
+    hello = "aGVsbG8="
+  }
 }
