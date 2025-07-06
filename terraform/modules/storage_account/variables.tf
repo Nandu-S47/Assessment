@@ -81,3 +81,13 @@ variable "hns_enable" {
   }
   
 }
+
+variable "adls_filesystem_name" {
+  description = "The name of the ADLS filesystem"
+  type = string
+  validation {
+    condition = length(var.adls_filesystem_name) > 0
+    error_message = "The ADLS filesystem name must not be empty"
+  }
+  
+}

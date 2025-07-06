@@ -100,7 +100,7 @@ resource "azurerm_storage_account" "adlsfs" {
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "example" {
-  name               = "adlsfs"
+  name               = "${lower(var.sa_name)}${random_string.random.result}fs"
   storage_account_id = azurerm_storage_account.adlsfs.id
 
   properties = {

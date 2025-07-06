@@ -20,7 +20,7 @@ variable "sku_name" {
   description = "The SKU of the Databricks workspace"
   type        = string
   validation {
-    condition     = contains(["standard", "premium"], var.sku_name)
+    condition     = contains(["standard", "premium", "trial"], var.sku_name)
     error_message = "Invalid SKU"
   }
   
